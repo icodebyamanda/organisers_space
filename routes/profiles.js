@@ -58,25 +58,26 @@ router.get('/:UserId', async (req, res) => {
 
 
   // GET - One profile from an organiser <- admin <- TBC
-
-  // router.get('/:UserId', async (req, res) => {
-  //   const {UserId} = req.params;
-  //   // const UserId = req.user_id;
-    
-
-  //   try {
-
-  //     const profile = await models.Profile.findOne({ 
-  //       where: {
-  //         UserId,
-  //       },
-  //       });
-  //     res.send(profile);
-  //     } 
-  //     catch (error) {
-  //       res.status(500).send(error);
-  //     }
-  //   });
+  router.get('/:UserId/:profile_name', async (req, res) => {
+    const {UserId} = req.params;
+    // const UserId = req.user_id;
+    const {profile_name} = req.params;
+  
+    try {
+  
+      const profiles = await models.Profile.findAll({ 
+        where: {
+          UserId,
+          profile_name,
+        },
+        });
+      res.send(profiles);
+      } 
+      catch (error) {
+        res.status(500).send(error);
+      }
+    });
+  
 
 // PUT - update an organiser's profile <- private
 
