@@ -17,5 +17,7 @@ Run npm run migrate in your terminal in order to create the DB tables.
 
 npm install jsonwebtoken bcrypt
 npm install axios
+npm install react-router
+npm install bootstrap
 
 - Chose not to delete all keywords in spite of an event or a profile being deleted
