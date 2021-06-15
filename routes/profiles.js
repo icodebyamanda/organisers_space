@@ -53,6 +53,9 @@ router.get('/:UserId', async (req, res) => {
     }
   });
 
+
+  //! Get one profile of the organisers
+  
   router.get('/:UserId/:id', async (req, res) => {
     const {UserId} = req.params;
     // const UserId = req.user_id;
@@ -99,9 +102,6 @@ router.put('/:UserId/:id', async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-
-// POST - create organiser's keywords <- private
 
 
 //! DELETE - an organiser's profile <- private and admin
