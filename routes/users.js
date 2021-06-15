@@ -80,14 +80,13 @@ router.get('/settings/:id', async (req, res) => {
 
   router.put('/settings/:id', async (req, res) => {
     const {firstname, lastname, email, password} = req.body;
-    // const id = req.user_id;
+    //const id = req.user_id;
     const {id} = req.params;
 
     try {
-      //const hash = await bcrypt.hash(password, saltRounds);
+      const hash = await bcrypt.hash(password, saltRounds);
       await models.User.update(
-        { firstname, lastname, email, password },
-      // { email, username, password : hash },
+        { firstname, lastname, email, password : hash },
       { where: {
           id,
         },
@@ -112,8 +111,8 @@ router.delete('/settings/:id', async (req, res) => {
   const user = await models.User.destroy({
     where: {
       id,
-    }
-    // include: models.Selection,
+    },
+    include: models.Profile,
   });
     res.send({message:'User deleted'});
   

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const models = require('../models');
 
-/* GET profiles listing. */
+//! GET profiles listing
 router.get('/', (req, res, next) => {
   res.send('respond with a profile');
 });
