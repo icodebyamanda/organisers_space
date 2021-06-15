@@ -54,8 +54,8 @@ router.get('/:UserId', async (req, res) => {
   });
 
 
-  //! Get one profile of the organisers
-  
+  //! Get one profile of the organisers <- Private 
+
   router.get('/:UserId/:id', async (req, res) => {
     const {UserId} = req.params;
     // const UserId = req.user_id;
