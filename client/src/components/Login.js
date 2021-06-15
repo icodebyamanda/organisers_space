@@ -1,28 +1,32 @@
 import React, { useState } from "react";
 //import { Link } from "react-router";
-import axios from "axios";
+// import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 
-export default function Register() {
+export default function Login() {
 
   const [loginDetails, setLogin] = useState({
     email: '',
     password: '',
   });
 
+  const auth = useAuth();
+
   const [confirmationMessage, setConfirmation] = useState(false);
 
   const handleChange = (e) => {
+    e.persist();
     const value = e.target.value;
 
-    setSignUp((state) => ({
+    setLogin((state) => ({
       ...state,
       [e.target.name]: value,
     }));
   };
 
   const clearForm = () => {
-    setSignUp({
+    setLogin({
       email: '',
       password: '',
     });
@@ -37,8 +41,6 @@ export default function Register() {
     clearForm()
     displayConfirmationMessage()
   };
-
-
 
 
   return(

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import axios from "axios";
 
 export default function useProvideAuth() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null); 
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token")); 
   // Global state, part of the context and thus aware to everybody
 
 

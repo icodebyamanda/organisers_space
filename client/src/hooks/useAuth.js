@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import authContext from "../contexts/auth";
 
 // Will allow to know the authentication context of a user (logged in or not)

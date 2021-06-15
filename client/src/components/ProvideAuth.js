@@ -1,5 +1,4 @@
 import React from "react";
-
 import useProvideAuth from "../hooks/useProvideAuth";
 import authContext from "../contexts/auth";
 
