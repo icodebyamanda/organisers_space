@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 
@@ -103,7 +103,7 @@ export default function Register() {
   {confirmationMessage && (
   <div>
   <div> Thank you for signing up!</div>
-  <div> Please <span> log in </span> to access your personal space </div>
+  <div> Please <span><Link to='/Login'> log in </Link></span> to access your personal space </div>
   </div>
   )}
 
