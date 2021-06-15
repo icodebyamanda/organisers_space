@@ -11,6 +11,8 @@ export default function PrivateHomepage() {
   const history = useHistory();
 	const { id } = useParams();
 
+  // ISSUE HERE IS THERE'S NO EVENT HANDLER - may need a reverse useHistory system
+
   useEffect(() => {
     
     getFirstName(id);
