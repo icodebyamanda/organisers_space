@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 
@@ -14,8 +14,6 @@ export default function Register() {
 
   const history = useHistory()
 
-  //const [confirmationMessage, setConfirmation] = useState(false);
-
   const handleChange = (e) => {
     const value = e.target.value;
 
@@ -25,25 +23,11 @@ export default function Register() {
     }));
   };
 
-  const clearForm = () => {
-    setSignUp({
-      firstname:'',
-      lastname: '',
-      email: '',
-      password: '',
-    });
-  };
-
-  // const displayConfirmationMessage = () => {
-  //   setConfirmation(true);
-  // };
 
   const RegisterUser = () => {
     axios.post('/users/register', signUpDetails)
     .then(() => setSignUp(signUpDetails))
     .then(() => history.push('/login'))
-    .then(() => clearForm())
-    //.then(() => displayConfirmationMessage())
     .catch((error) => { return error });
   };
 
@@ -102,14 +86,6 @@ export default function Register() {
   <button className="btn btn-secondary" onClick={RegisterUser}> Submit</button>
 
   </div>
-
-  {/* {confirmationMessage && (
-  <div>
-  <div> Thank you for signing up!</div>
-  <div> Please <span><Link to='/Login'> log in </Link></span> to access your personal space </div>
-  </div>
-  )} */}
-
 
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import { Link } from "react-router";
+import { useHistory } from "react-router-dom";
 // import axios from "axios";
 import useAuth from "../hooks/useAuth";
 
@@ -12,8 +12,7 @@ export default function Login() {
   });
 
   const auth = useAuth();
-
-  const [confirmationMessage, setConfirmation] = useState(false);
+  const history = useHistory();
 
   const handleChange = (e) => {
     e.persist();
@@ -25,21 +24,9 @@ export default function Login() {
     }));
   };
 
-  const clearForm = () => {
-    setLogin({
-      email: '',
-      password: '',
-    });
-  };
-
-  const displayConfirmationMessage = () => {
-    setConfirmation(true);
-  };
-
   const logUserIn = () => {
     auth.signin(loginDetails)
-    clearForm()
-    displayConfirmationMessage()
+    history.push('/home')
   };
 
 
@@ -73,13 +60,6 @@ export default function Login() {
   <button className="btn btn-secondary" onClick={logUserIn}> Submit</button>
 
   </div>
-
-  {confirmationMessage && (
-  <div>
-  <div> Great! You are now logged in. </div>
-  </div>
-  )}
-
 
     </div>
   );
