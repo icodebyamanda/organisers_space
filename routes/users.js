@@ -7,7 +7,7 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const supersecret = process.env.SUPER_SECRET;
-//const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 //! GET users listing
 router.get("/", function (req, res) {
@@ -56,9 +56,9 @@ router.post('/login', async (req, res) => {
   }
 });
 
-//! GET user's settings' profile // TBC for token <- guard
+//! GET user's settings' profile
 
-router.get('/settings/:id', async (req, res) => {
+router.get('/settings/:id', userShouldBeLoggedIn, async (req, res) => {
   // const id = req.user_id;
   const {id} = req.params;
 
@@ -76,9 +76,9 @@ router.get('/settings/:id', async (req, res) => {
   });
 
 
-//! PUT - Update user's data (Private route only - no password reset) <- Guard
+//! PUT - Update user's data (Private route only - no password reset)
 
-  router.put('/settings/:id', async (req, res) => {
+  router.put('/settings/:id', userShouldBeLoggedIn, async (req, res) => {
     const {firstname, lastname, email, password} = req.body;
     //const id = req.user_id;
     const {id} = req.params;
@@ -102,7 +102,7 @@ router.get('/settings/:id', async (req, res) => {
 
 //! DELETE a user -> guard
 
-router.delete('/settings/:id', async (req, res) => {
+router.delete('/settings/:id', userShouldBeLoggedIn, async (req, res) => {
   // const id = req.user_id;
   const {id} = req.params;
 

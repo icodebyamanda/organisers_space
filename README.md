@@ -21,4 +21,6 @@ npm install react-router
 npm install react-router-dom
 npm install bootstrap
 
+Have an .env file
+
 - Chose not to delete all keywords in spite of an event or a profile being deleted
