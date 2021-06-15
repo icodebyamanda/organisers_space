@@ -32,9 +32,7 @@ router.post('/:UserId', async (req, res) => {
   }
 });
 
-
-//FOR FUTURE -> route to create several organisers' profile from one user / need refactoring
-//GET - all profiles from an organiser <- admin <- TBC
+//! GET - all profiles from an organiser <- admin <- TBC
 
 router.get('/:UserId', async (req, res) => {
   const {UserId} = req.params;
@@ -79,7 +77,30 @@ router.get('/:UserId', async (req, res) => {
     });
   
 
-// PUT - update an organiser's profile <- private
+//! PUT - update an organiser's profile <- private
+
+router.put('/:UserId/:profile_name', async (req, res) => {
+  const { description, profile_picture, video, profile_name } = req.body;
+  const {UserId} = req.params;
+  // const UserId = req.user_id;
+  //const {profile_name} = req.params;
+
+  try {
+    //const hash = await bcrypt.hash(password, saltRounds);
+    await models.Profile.update(
+      { description, profile_picture, video, profile_name },
+    { where: {
+      UserId,
+      //profile_name,
+      },
+    });
+
+    res.send({ message: "profile updated succesfully!" });
+  }
+  catch(error) { 
+    res.status(500).send(error);
+  }
+});
 
 
 // POST - create organiser's keywords <- private
