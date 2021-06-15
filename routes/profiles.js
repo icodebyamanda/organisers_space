@@ -11,25 +11,49 @@ router.get("/", function (req, res) {
 		});
 });
 
-// POST - create an organiser's profile <- private
+// POST - create an organiser's profile <- TBC <- private
 
-router.post('/', async (req, res) => {
-  
-  const UserId = req.user_id;
+router.post('/:UserId', async (req, res) => {
+  const {UserId} = req.params;
+  // const UserId = req.user_id;
   const { description, profile_picture, video } = req.body;
 
   try {
 
-    await models.Profile.create({ UserId, description, profile_picture, video });
-    res.send({ message: UserId + "Profile created" });
+    await models.Profile.create({ UserId, description, profile_picture, video },
+      { where: {
+        UserId,
+      },
+      });
+    res.send({ message: UserId + " Profile created" });
 
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
 });
 
-// GET - an organiser's profile <- admin
 
+
+  // GET - One profile from an organiser <- admin <- TBC
+
+  router.get('/:UserId', async (req, res) => {
+    const {UserId} = req.params;
+    // const UserId = req.user_id;
+    
+
+    try {
+
+      const profile = await models.Profile.findOne({ 
+        where: {
+          UserId,
+        },
+        });
+      res.send(profile);
+      } 
+      catch (error) {
+        res.status(500).send(error);
+      }
+    });
 
 // PUT - update an organiser's profile <- private
 
@@ -39,5 +63,28 @@ router.post('/', async (req, res) => {
 
 // DELETE - an organiser's profile <- private and admin
 
+/*
+FOR FUTURE -> route to create several organisers' profile from one user / need refactoring
+GET - all profiles from an organiser <- admin <- TBC
+
+router.get('/:UserId', async (req, res) => {
+  const {UserId} = req.params;
+  // const UserId = req.user_id;
+  
+
+  try {
+
+    const profiles = await models.Profile.findAll({ 
+      where: {
+        UserId,
+      },
+      });
+    res.send(profiles);
+    } 
+    catch (error) {
+      res.status(500).send(error);
+    }
+  });
+*/
 
 module.exports = router;
