@@ -98,7 +98,7 @@ router.delete('/:ProfileId/:id', async (req, res) => {
     res.status(500).send(err)};
 });
 
-// POST - create a keyword for ONE event's presentation
+//! POST - create a keyword for ONE event's presentation
 
 
 // BUG here: if an EventId exists but the ProfileId isn't a match to EventId it will post - which is an issue
@@ -132,14 +132,84 @@ router.post('/:ProfileId/:EventId/', async (req, res) => {
 });
 
 
-// PUT - Update a keyword for ONE event's presentation
+//! PUT - Update a keyword for ONE event's presentation
 
-// GET - all keywords for ONE event's presentation
+router.put('/:ProfileId/:EventId/:id', async (req, res) => {
+  
+  const {ProfileId} = req.params;
+  const {EventId} = req.params;
+  const {id} = req.params;
 
-// GET - all keywords for ALL event's presentation
+  // const UserId = req.user_id;
+  const { word } = req.body;
+  
 
-// DELETE - a keyword for event's profile
+  try {
 
-// GET - All duplicates between eventId and ProfileId
+    await models.Keyword.update({ 
+      ProfileId,
+      EventId, 
+      id, 
+      word },
+
+        { where: {
+          ProfileId,
+          EventId,
+          id,
+        },
+        });
+      res.send({ message: `${ProfileId} + ${EventId} " Keyword updated"` });
+
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+//! GET - all keywords for ONE event's presentation
+
+router.get('/:ProfileId/:EventId', async (req, res) => {
+  const {ProfileId} = req.params;
+  const {EventId} = req.params;
+  // const UserId = req.user_id;
+
+  try {
+
+    const list = await models.Keyword.findAll({ 
+      where: {
+        ProfileId,
+        EventId,
+      },
+      });
+    res.send(list);
+
+  } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+});
+
+
+//! DELETE - a keyword for event's profile
+
+router.delete('/:ProfileId/:EventId/:id', async (req, res) => {
+  // const id = req.user_id;
+  const {ProfileId} = req.params;
+  const {EventId} = req.params;
+  const {id} = req.params;
+
+  try {
+
+  const word = await models.Keyword.destroy({
+    where: {
+      ProfileId,
+      EventId,
+      id,
+    },
+  });
+    res.send({message: id + ' Has been deleted'});
+  
+  } catch(err) { 
+    res.status(500).send(err)};
+});
+
 
 module.exports = router;
