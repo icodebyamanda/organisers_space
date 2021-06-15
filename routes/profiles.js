@@ -53,23 +53,20 @@ router.get('/:UserId', async (req, res) => {
     }
   });
 
-
-
-  // GET - One profile from an organiser <- admin <- TBC
-  router.get('/:UserId/:profile_name', async (req, res) => {
+  router.get('/:UserId/:id', async (req, res) => {
     const {UserId} = req.params;
     // const UserId = req.user_id;
-    const {profile_name} = req.params;
+    const {id} = req.params;
   
     try {
   
-      const profiles = await models.Profile.findAll({ 
+      const profile = await models.Profile.findAll({ 
         where: {
           UserId,
-          profile_name,
+          id,
         },
         });
-      res.send(profiles);
+      res.send(profile);
       } 
       catch (error) {
         res.status(500).send(error);
@@ -79,19 +76,20 @@ router.get('/:UserId', async (req, res) => {
 
 //! PUT - update an organiser's profile <- private
 
-router.put('/:UserId/:profile_name', async (req, res) => {
+
+router.put('/:UserId/:id', async (req, res) => {
   const { description, profile_picture, video, profile_name } = req.body;
   const {UserId} = req.params;
   // const UserId = req.user_id;
-  //const {profile_name} = req.params;
+  const {id} = req.params;
 
   try {
-    //const hash = await bcrypt.hash(password, saltRounds);
+    
     await models.Profile.update(
       { description, profile_picture, video, profile_name },
     { where: {
       UserId,
-      //profile_name,
+      id,
       },
     });
 
@@ -106,8 +104,27 @@ router.put('/:UserId/:profile_name', async (req, res) => {
 // POST - create organiser's keywords <- private
 
 
-// DELETE - an organiser's profile <- private and admin
+//! DELETE - an organiser's profile <- private and admin
 
+router.delete('/:UserId/:id', async (req, res) => {
+  // const id = req.user_id;
+  const {UserId} = req.params;
+  const {id} = req.params;
+
+  try {
+
+  const user = await models.Profile.destroy({
+    where: {
+      UserId,
+      id,
+    },
+    include: models.Event,
+  });
+    res.send({message: id + ' Has been deleted'});
+  
+  } catch(err) { 
+    res.status(500).send(err)};
+});
 
 
 module.exports = router;
