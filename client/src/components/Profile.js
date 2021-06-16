@@ -6,7 +6,9 @@ import "../App.css";
 export default function Profile() {
 
   const history = useHistory();
-  const {id}= useParams();
+  const { id } = useParams();
+
+  console.log(`tell me ${id}`)
 
   const [profile, setProfile] = useState({
     profile_name:'',
@@ -15,9 +17,15 @@ export default function Profile() {
     video: '',
   });
 
+  const [displayData, setDisplayData] = useState(false)
+
+  const displayProfile= () => {
+    setDisplayData(true);
+  };
   
   useEffect(() => {
     // getProfile(UserId);
+    // getProfile(id);
     getProfile(id);
 
 		let token = localStorage.getItem("token");
@@ -25,34 +33,39 @@ export default function Profile() {
 			history.push("/login");
 		}
 		console.log(token);
-	}, [id]);
+	}, []);
 
-  //${id}
-  const getProfile = async (id) => {
+ 
+  const getProfile = async () => {
 		try {
-			const profile = await axios.get(`/profiles/organiser/${id}`, {
+      console.log(`this is x ${id}`)
+      
+			const result = await axios.get(`/profiles/organiser`, {
 				headers: { "x-access-token": localStorage.getItem("token") },
 			});
-      console.log(profile.data)
-			setProfile(profile.data);
+      // console.log(`this is ${id}`)
+      console.log(`this is profile.data ${result.data}`)
+			setProfile(result.data);
+      displayProfile();
 		} catch (error) {
-			console.log(error);
+			console.log(error, {error});
 		}
 	};
+
 
 
   return (
     <div>
       <div>Hello</div>
 
-      {profile && 
+      {displayData && (
       <div>
         <h2>{profile.profile_name}</h2>
-        {profile.description}
-        {profile.picture}
-        {profile.video}
+        descr {profile.description}
+        picture {profile.picture}
+        video {profile.video}
       </div>
-      }
+      )}
 
    
     </div>

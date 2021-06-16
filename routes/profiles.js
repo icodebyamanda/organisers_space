@@ -3,7 +3,7 @@ var router = express.Router();
 const models = require('../models');
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
-//! GET profiles listing
+//! GET profiles listing <- just for testing
 router.get("/", userShouldBeLoggedIn, function (req, res) {
 	models.Profile.findAll()
 		.then((data) => res.send(data))
@@ -35,10 +35,30 @@ router.post('/organiser', userShouldBeLoggedIn, async (req, res) => {
 
 //! GET - all profiles from an organiser
 
+// router.get('/organiser/:UserId', userShouldBeLoggedIn, async (req, res) => {
+//   const {UserId} = req.params;
+//   // const UserId = req.user_id;
+//   // const {UserId} = req.id;
+
+//   try {
+
+//     const profiles = await models.Profile.findAll({ 
+//       where: {
+//         UserId,
+//       },
+//       });
+//     res.send(profiles);
+//     } 
+//     catch (error) {
+//       res.status(500).send(error);
+//     }
+//   });
+
 router.get('/organiser', userShouldBeLoggedIn, async (req, res) => {
   //const {UserId} = req.params;
-  // const UserId = req.user_id;
-  const UserId = req.id;
+  const {UserId} = req.user_id;
+  // const {UserId} = req.id;
+  
 
   try {
 
@@ -57,11 +77,11 @@ router.get('/organiser', userShouldBeLoggedIn, async (req, res) => {
 
   //! Get one profile of the organisers  
   // /:UserId/:id
-  router.get('/unique', userShouldBeLoggedIn, async (req, res) => {
-    //const {UserId} = req.params;
-    const UserId = req.user_id;
-    //const {id} = req.params;
-    const id = req.params;
+  router.get('/unique/:UserId/:id', userShouldBeLoggedIn, async (req, res) => {
+    const {UserId} = req.params;
+    // const UserId = req.user_id;
+    const {id} = req.params;
+    // const id = req.params;
   
     try {
   

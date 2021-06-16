@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 //import UpdateProfile from "./UpdateProfile";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, Link, useParams } from "react-router-dom";
 import "../App.css";
 
 export default function CreateProfile() {
@@ -15,6 +15,8 @@ export default function CreateProfile() {
     profile_picture: '',
     video: '',
   });
+
+  const [profileLink, setProfileLink] = useState(false)
 
   
   useEffect(() => {
@@ -37,12 +39,15 @@ export default function CreateProfile() {
     });
   };
   
+  const displayLink= () => {
+    setProfileLink(true);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createProfile();
     clearForm();
-    //onUpdateDescription();
+    displayLink()
   };
 
 
@@ -118,8 +123,13 @@ export default function CreateProfile() {
         </label>
         <br />
         <button className="btn btn-secondary" id="btnmargin">Save</button>
-
       </form>
+
+    {profileLink && (
+      <div>
+        Great to have you here, you can now view your profile: <span> <Link to='/myprofile'> Click! </Link> </span>
+      </div>
+    )}
 
     </div>
   )
