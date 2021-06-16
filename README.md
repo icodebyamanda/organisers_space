@@ -33,8 +33,11 @@ mysql -u root -p
 - For example:
 
 DB_HOST=localhost
+
 DB_USER=root
+
 DB_NAME=DBNAME
+
 DB_PASS=YOURPASSWORD
 
 - set the steps of the migration with sequelize
