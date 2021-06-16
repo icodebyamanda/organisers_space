@@ -6,7 +6,7 @@ import "../App.css";
 
 export default function CreateProfile() {
 
-  let history = useHistory();
+  const history = useHistory();
   const { id } = useParams();
 
   const [creation, setCreation] = useState({
@@ -16,11 +16,11 @@ export default function CreateProfile() {
     video: '',
   });
 
-  const [profileLink, setProfileLink] = useState(false)
+  //const [profileLink, setProfileLink] = useState(false)
 
   
   useEffect(() => {
-		createProfile(id);
+		//createProfile(id);
 
 		let token = localStorage.getItem("token");
 		if (!token) {
@@ -39,15 +39,15 @@ export default function CreateProfile() {
     });
   };
   
-  const displayLink= () => {
-    setProfileLink(true);
-  };
+  // const displayLink= () => {
+  //   setProfileLink(true);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createProfile();
     clearForm();
-    displayLink()
+    //displayLink()
   };
 
 
@@ -67,6 +67,7 @@ export default function CreateProfile() {
         },
       });
       console.log("New description added", creation);
+      history.push('/myprofile')
     } catch (error) {
       console.log(error);
     }
@@ -125,11 +126,11 @@ export default function CreateProfile() {
         <button className="btn btn-secondary" id="btnmargin">Save</button>
       </form>
 
-    {profileLink && (
+    {/* {profileLink && (
       <div>
         Great to have you here, you can now view your profile: <span> <Link to='/myprofile'> Click! </Link> </span>
       </div>
-    )}
+    )} */}
 
     </div>
   )
