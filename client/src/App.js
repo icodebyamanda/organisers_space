@@ -1,12 +1,12 @@
 import './App.css';
 import React from 'react';
-// import Welcome from './components/Welcome'
 import Register from './components/Register'
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import ProvideAuth from "./components/ProvideAuth";
 import PrivateRoute from "./components/PrivateRoute";
 import NavBar from "./components/NavBar";
+import Settings from "./components/Settings";
 import PrivateHomepage from "./components/PrivateHomepage";
 
 import { BrowserRouter as Router, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
@@ -24,6 +24,7 @@ function App() {
             <NavBar />
 
             <Switch>
+
             <Route path="/register" component={Register} />
 
             <Route path="/login" component={Login} />
@@ -31,6 +32,8 @@ function App() {
             <PrivateRoute path="/home" component={PrivateHomepage} />
 
             <PrivateRoute path="/profile" component={Profile} />
+
+            <PrivateRoute path="/settings" component={Settings} />
 
             </Switch>
             

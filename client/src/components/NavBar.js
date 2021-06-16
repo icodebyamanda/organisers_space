@@ -18,6 +18,8 @@ export default function NavBar() {
       {!auth.isLoggedIn && <Link to='/login'> Login </Link>}
       
       {auth.isLoggedIn && <Link to='/profile'> Profile </Link>}
+
+      {auth.isLoggedIn && <Link to='/settings'> Settings </Link>}
       
       {auth.isLoggedIn && (
         <button onClick={logout} className="btn btn-dark">

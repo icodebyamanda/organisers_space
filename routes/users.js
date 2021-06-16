@@ -10,7 +10,7 @@ const supersecret = process.env.SUPER_SECRET;
 const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 //! GET users listing
-router.get("/", function (req, res) {
+router.get("/", userShouldBeLoggedIn, function (req, res) {
 	models.User.findAll()
 		.then((data) => res.send(data))
 		.catch((error) => {
@@ -58,9 +58,9 @@ router.post('/login', async (req, res) => {
 
 //! GET user's settings' profile
 
-router.get('/settings/:id', userShouldBeLoggedIn, async (req, res) => {
-  // const id = req.user_id;
-  const {id} = req.params;
+router.get('/settings', userShouldBeLoggedIn, async (req, res) => {
+  const id = req.user_id;
+  //const {id} = req.params;
 
   try {
     const user = await models.User.findOne({
@@ -78,10 +78,10 @@ router.get('/settings/:id', userShouldBeLoggedIn, async (req, res) => {
 
 //! PUT - Update user's data (Private route only - no password reset)
 
-  router.put('/settings/:id', userShouldBeLoggedIn, async (req, res) => {
-    const {firstname, lastname, email, password} = req.body;
-    //const id = req.user_id;
-    const {id} = req.params;
+  router.put('/settings', userShouldBeLoggedIn, async (req, res) => {
+    const { firstname, lastname, email, password } = req.body;
+    const id = req.user_id;
+    //const {id} = req.params;
 
     try {
       const hash = await bcrypt.hash(password, saltRounds);

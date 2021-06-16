@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import UpdateProfile from "./UpdateProfile";
+import { useHistory, Link } from "react-router-dom";
+import "../App.css";
 
 export default function Profile() {
-  return (
 
+  return (
     <div>
-      <h1> Your profile </h1>
+      
+      Profile
+
     </div>
     
   )

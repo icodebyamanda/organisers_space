@@ -1,8 +1,7 @@
 import "../App.css";
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-const axios = require("axios");
 
 export default function PrivateHomepage() {
 
@@ -11,7 +10,11 @@ export default function PrivateHomepage() {
   return (
     <div>
       
-    <h1>Welcome {id.firstname} </h1>
+    <h1>Welcome to your organiser' space! </h1>
+
+    <p> What would you like to do today ?</p>
+
+
 
     </div>
   )

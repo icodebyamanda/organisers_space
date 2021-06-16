@@ -43,8 +43,8 @@ export default function Register() {
     <div>Firstname</div>
     <input
     type="text"
-    name="frstname"
-    value={signUpDetails.fisrtname}
+    name="firstname"
+    value={signUpDetails.firstname}
     onChange={handleChange}
     className="form-control"
     />
