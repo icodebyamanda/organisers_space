@@ -37,8 +37,8 @@ router.post('/organiser', userShouldBeLoggedIn, async (req, res) => {
 
 router.get('/organiser', userShouldBeLoggedIn, async (req, res) => {
   //const {UserId} = req.params;
-  const UserId = req.user_id;
-  
+  // const UserId = req.user_id;
+  const UserId = req.id;
 
   try {
 
@@ -56,7 +56,7 @@ router.get('/organiser', userShouldBeLoggedIn, async (req, res) => {
 
 
   //! Get one profile of the organisers  
-
+  // /:UserId/:id
   router.get('/unique', userShouldBeLoggedIn, async (req, res) => {
     //const {UserId} = req.params;
     const UserId = req.user_id;

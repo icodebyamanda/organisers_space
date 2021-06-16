@@ -17,7 +17,7 @@ export default function NavBar() {
       
       {!auth.isLoggedIn && <Link to='/login'> Login </Link>}
       
-      {auth.isLoggedIn && <Link to='/profile'> Profile </Link>}
+      {auth.isLoggedIn && <Link to='/myprofile'> Profile </Link>}
 
       {auth.isLoggedIn && <Link to='/settings'> Settings </Link>}
       

@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import UpdateProfile from "./UpdateProfile";
 import { useHistory, useParams } from "react-router-dom";
 import "../App.css";
 
 export default function Profile() {
 
-  let history = useHistory();
-  const { id } = useParams();
+  const history = useHistory();
+  const {id}= useParams();
 
-  const [creation, setCreation] = useState({
+  const [profile, setProfile] = useState({
     profile_name:'',
     description: '',
     profile_picture: '',
     video: '',
   });
-  const [profile, setProfile] = useState({
-    description:'',
-  });
 
   
   useEffect(() => {
-		createDescription(id);
+    // getProfile(UserId);
     getProfile(id);
 
 		let token = localStorage.getItem("token");
@@ -29,59 +25,15 @@ export default function Profile() {
 			history.push("/login");
 		}
 		console.log(token);
-	}, []);
+	}, [id]);
 
-
-  const clearForm = () => {
-    setCreation({
-      profile_name:'',
-      description: '',
-      profile_picture: '',
-      video: '',
-    });
-  };
-  
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    createDescription();
-    getProfile();
-    clearForm();
-    //onUpdateDescription();
-  };
-
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-  setCreation((state) => ({
-    ...state,
-    [e.target.name]: value,
-  }));
-  };
-
-  
-
-  const createDescription = async () => {
-    try {
-      await axios.post('/profiles/organiser', creation, {
-        headers: {
-          "x-access-token": localStorage.getItem("token"),
-        },
-      });
-      console.log("New description added", creation);
-      //getProfile();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
-
+  //${id}
   const getProfile = async (id) => {
 		try {
 			const profile = await axios.get(`/profiles/organiser/${id}`, {
 				headers: { "x-access-token": localStorage.getItem("token") },
 			});
+      console.log(profile.data)
 			setProfile(profile.data);
 		} catch (error) {
 			console.log(error);
@@ -91,65 +43,18 @@ export default function Profile() {
 
   return (
     <div>
-      
-    <h2>Your Profile</h2>
+      <div>Hello</div>
 
-    <h3> create your profile</h3>
-      <form onSubmit={handleSubmit}>
-        <label className="form-label" htmlFor="profile_name">
-          <div>name</div>
-          <input
-          type="text"
-          name="profile_name"
-          value={creation.profile_name}
-          onChange={handleChange}
-          className="form-control"
-          />
-        </label>
-        <br />
-        <label className="form-label" htmlFor="description">
-          <div>description</div>
-          <textarea
-          type="text"
-          name="description"
-          value={creation.description}
-          onChange={handleChange}
-          className="form-control"
-          ></textarea>
-        </label>
-        <br />
-        <label className="form-label" htmlFor="video">
-          <div>video</div>
-          <input
-          type="text"
-          name="video"
-          value={creation.video}
-          onChange={handleChange}
-          className="form-control"
-          />
-        </label>
-        <br />
-        <label className="form-label" htmlFor="picture">
-          <div>picture</div>
-          <input
-          type="text"
-          name="profile_picture"
-          value={creation.profile_picture}
-          onChange={handleChange}
-          className="form-control"
-          />
-        </label>
-        <br />
-        <button className="btn btn-secondary" id="btnmargin">Save</button>
+      {profile && 
+      <div>
+        <h2>{profile.profile_name}</h2>
+        {profile.description}
+        {profile.picture}
+        {profile.video}
+      </div>
+      }
 
-      </form>
-
-      <div> See your description</div>
-
-    <div> Your description
-      {profile.description}
-    </div>
-
+   
     </div>
     
   )
