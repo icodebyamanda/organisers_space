@@ -6,37 +6,7 @@ const axios = require("axios");
 
 export default function PrivateHomepage() {
 
-  const [user, setUser] = useState(null);
-
-  const history = useHistory();
-	const { id } = useParams();
-
-  // ISSUE HERE IS THERE'S NO EVENT HANDLER - may need a reverse useHistory system
-
-  useEffect(() => {
-    
-    getFirstName(id);
-
-    let token = localStorage.getItem("token");
-    if (!token) {
-      history.push("/login");
-    }
-    console.log(token);
-  }, []);
   
-  const getFirstname = async (id) => {
-    try {
-      const user = await axios.get(`/users`, {
-        headers: {
-          "x-access-token": localStorage.getItem("token"),
-        },
-      });
-
-      setUser(user.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div>
