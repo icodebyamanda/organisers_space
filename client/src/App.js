@@ -6,11 +6,13 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import ProvideAuth from "./components/ProvideAuth";
 import PrivateRoute from "./components/PrivateRoute";
-import NavBar from "./components/NavBar";
+import NavBarTop from "./components/NavBarTop";
 import Settings from "./components/Settings";
 import PrivateHomepage from "./components/PrivateHomepage";
 import UpdateProfile from "./components/UpdateProfile";
 import CreateProfile from "./components/CreateProfile";
+import ProfileKeywords from "./components/ProfileKeywords";
+
 
 import { BrowserRouter as Router, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
 
@@ -24,7 +26,7 @@ function App() {
 
           <Router>
 
-            <NavBar />
+            <NavBarTop />
 
             <Switch>
 
@@ -41,6 +43,8 @@ function App() {
             <PrivateRoute path="/create-profile" component={CreateProfile} />
 
             <PrivateRoute path="/settings" component={Settings} />
+
+            <PrivateRoute path="/profile-keywords" component={ProfileKeywords} />
 
             </Switch>
             

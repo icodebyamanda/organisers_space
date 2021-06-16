@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const models = require('../models');
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
-// GET keywords listing
-router.get("/", function (req, res) {
+//! GET keywords listing <- admin only
+router.get("/", userShouldBeLoggedIn,function (req, res) {
 	models.Keyword.findAll()
 		.then((data) => res.send(data))
 		.catch((error) => {
@@ -13,7 +14,7 @@ router.get("/", function (req, res) {
 
 //! POST - create a keyword for ONE organiser's profile
 
-router.post('/:ProfileId', async (req, res) => {
+router.post('/:ProfileId', userShouldBeLoggedIn, async (req, res) => {
   const {ProfileId} = req.params;
   // const UserId = req.user_id;
   const { word } = req.body;
@@ -34,7 +35,7 @@ router.post('/:ProfileId', async (req, res) => {
 
 //! PUT - Update a keyword for ONE organiser's profile
 
-router.put('/:ProfileId/:id', async (req, res) => {
+router.put('/:ProfileId/:id', userShouldBeLoggedIn, async (req, res) => {
   const {ProfileId} = req.params;
   const {id} = req.params;
   // const UserId = req.user_id;
@@ -58,7 +59,7 @@ router.put('/:ProfileId/:id', async (req, res) => {
 
 //! GET - all keywords for ONE organiser's profile
 
-router.get('/:ProfileId', async (req, res) => {
+router.get('/:ProfileId', userShouldBeLoggedIn, async (req, res) => {
   const {ProfileId} = req.params;
   // const UserId = req.user_id;
 
@@ -79,7 +80,7 @@ router.get('/:ProfileId', async (req, res) => {
 
 //! DELETE - a keyword for organiser's profile
 
-router.delete('/:ProfileId/:id', async (req, res) => {
+router.delete('/:ProfileId/:id', userShouldBeLoggedIn, async (req, res) => {
   // const id = req.user_id;
   const {ProfileId} = req.params;
   const {id} = req.params;
@@ -107,7 +108,7 @@ router.delete('/:ProfileId/:id', async (req, res) => {
 
 // If params don't include :ProfileId, due to association, EventId will be null and ProfileId would take EventId's param
 
-router.post('/:ProfileId/:EventId/', async (req, res) => {
+router.post('/:ProfileId/:EventId/', userShouldBeLoggedIn, async (req, res) => {
   
   const {ProfileId} = req.params;
   const {EventId} = req.params;
@@ -134,7 +135,7 @@ router.post('/:ProfileId/:EventId/', async (req, res) => {
 
 //! PUT - Update a keyword for ONE event's presentation
 
-router.put('/:ProfileId/:EventId/:id', async (req, res) => {
+router.put('/:ProfileId/:EventId/:id', userShouldBeLoggedIn, async (req, res) => {
   
   const {ProfileId} = req.params;
   const {EventId} = req.params;
@@ -167,7 +168,7 @@ router.put('/:ProfileId/:EventId/:id', async (req, res) => {
 
 //! GET - all keywords for ONE event's presentation
 
-router.get('/:ProfileId/:EventId', async (req, res) => {
+router.get('/:ProfileId/:EventId', userShouldBeLoggedIn, async (req, res) => {
   const {ProfileId} = req.params;
   const {EventId} = req.params;
   // const UserId = req.user_id;
@@ -190,7 +191,7 @@ router.get('/:ProfileId/:EventId', async (req, res) => {
 
 //! DELETE - a keyword for event's profile
 
-router.delete('/:ProfileId/:EventId/:id', async (req, res) => {
+router.delete('/:ProfileId/:EventId/:id', userShouldBeLoggedIn, async (req, res) => {
   // const id = req.user_id;
   const {ProfileId} = req.params;
   const {EventId} = req.params;

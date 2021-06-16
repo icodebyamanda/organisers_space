@@ -8,7 +8,10 @@ import "../App.css";
 export default function UpdateProfile(){
   
   const [update, setUpdate] = useState({
-    description:'',
+    profile_name:'',
+    description: '',
+    profile_picture: '',
+    video: '',
   });
 
   // useEffect(() => {
@@ -18,7 +21,7 @@ export default function UpdateProfile(){
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateDescription();
+    updateProfile();
     //onUpdateDescription();
   };
   
@@ -30,9 +33,10 @@ export default function UpdateProfile(){
     }));
   };
 
-  const updateDescription = async () => {
+  //unifnished route - not tested
+  const updateProfile = async () => {
     try {
-      await axios.put(`/profiles/profile`, update, {
+      await axios.put(`/profiles/unique`, update, {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },
@@ -45,24 +49,56 @@ export default function UpdateProfile(){
   
   return (
     <div>
-      Update Profile
-      
-      <form>
-        <label className="form-label" id="cellspadding" htmlFor="description-profile">
-            Describe yourself
-            <textarea
-              type="text"
-              name="description"
-              value={update.description}
-              onChange={handleChange}
-              id="description"
-              className="form-control"
-            ></textarea>
+      <h3>Update Your Profile</h3>
+
+      <form onSubmit={handleSubmit}>
+        <label className="form-label" htmlFor="profile_name">
+          <div>name</div>
+          <input
+          type="text"
+          name="profile_name"
+          value={update.profile_name}
+          onChange={handleChange}
+          className="form-control"
+          />
         </label>
         <br />
-        <button className="btn btn-secondary" id="btnmargin" onSubmit={handleSubmit}>Update</button>
-
+        <label className="form-label" htmlFor="description">
+          <div>description</div>
+          <textarea
+          type="text"
+          name="description"
+          value={update.description}
+          onChange={handleChange}
+          className="form-control"
+          ></textarea>
+        </label>
+        <br />
+        <label className="form-label" htmlFor="video">
+          <div>video</div>
+          <input
+          type="text"
+          name="video"
+          value={update.video}
+          onChange={handleChange}
+          className="form-control"
+          />
+        </label>
+        <br />
+        <label className="form-label" htmlFor="picture">
+          <div>picture</div>
+          <input
+          type="text"
+          name="profile_picture"
+          value={update.profile_picture}
+          onChange={handleChange}
+          className="form-control"
+          />
+        </label>
+        <br />
+        <button className="btn btn-secondary" id="btnmargin">Save</button>
       </form>
+      
 
     </div>
   );

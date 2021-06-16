@@ -3,10 +3,11 @@ import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import "../App.css";
 
+
 export default function Profile() {
 
   const history = useHistory();
-  const { id } = useParams();
+  const id = useParams();
 
   console.log(`tell me ${id}`)
 
@@ -25,7 +26,6 @@ export default function Profile() {
   
   useEffect(() => {
     // getProfile(UserId);
-    // getProfile(id);
     getProfile(id);
 
 		let token = localStorage.getItem("token");
@@ -36,6 +36,8 @@ export default function Profile() {
 	}, []);
 
  
+  // Testing GET with all of them to test params <- not working
+  // Meant to be displaying one profile only
   const getProfile = async () => {
 		try {
       console.log(`this is x ${id}`)
@@ -56,7 +58,8 @@ export default function Profile() {
 
   return (
     <div>
-      <div>Hello</div>
+      <h2>Hello</h2>
+        <div>Here an event you have created</div>
 
       {displayData && (
       <div>

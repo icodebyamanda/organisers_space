@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 //import UpdateProfile from "./UpdateProfile";
 import { useHistory, Link, useParams } from "react-router-dom";
+// import ProfileKeywords from "./ProfileKeywords";
 import "../App.css";
 
 export default function CreateProfile() {
@@ -16,11 +17,15 @@ export default function CreateProfile() {
     video: '',
   });
 
+  // const[newKeyword, setNewKeyword] = useState({
+  //   word:'',
+  // })
+
   //const [profileLink, setProfileLink] = useState(false)
 
   
   useEffect(() => {
-		//createProfile(id);
+		createProfile(id);
 
 		let token = localStorage.getItem("token");
 		if (!token) {
@@ -67,7 +72,7 @@ export default function CreateProfile() {
         },
       });
       console.log("New description added", creation);
-      history.push('/myprofile')
+      //history.push('/myprofile')
     } catch (error) {
       console.log(error);
     }
@@ -125,6 +130,8 @@ export default function CreateProfile() {
         <br />
         <button className="btn btn-secondary" id="btnmargin">Save</button>
       </form>
+
+      {/* <ProfileKeywords newKeyword={newKeyword} onSaveKeyword={createProfile} /> */}
 
     {/* {profileLink && (
       <div>

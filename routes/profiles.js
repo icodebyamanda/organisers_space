@@ -102,10 +102,10 @@ router.get('/organiser', userShouldBeLoggedIn, async (req, res) => {
 //! PUT - update an organiser's profile
 
 
-router.put('/profile', userShouldBeLoggedIn, async (req, res) => {
+router.put('/unique/:UserId/:id', userShouldBeLoggedIn, async (req, res) => {
   const { description, profile_picture, video, profile_name } = req.body;
-  //const {UserId} = req.params;
-  const UserId = req.user_id;
+  const {UserId} = req.params;
+  //const UserId = req.user_id;
   //const {id} = req.params;
   const id = req.params;
 
@@ -129,11 +129,11 @@ router.put('/profile', userShouldBeLoggedIn, async (req, res) => {
 
 //! DELETE - an organiser's profile
 
-router.delete('profile', userShouldBeLoggedIn, async (req, res) => {
-  //const {UserId} = req.params;
-  const UserId = req.user_id;
-  //const {id} = req.params;
-  const id = req.params;
+router.delete('organiser/:UserId/:id', userShouldBeLoggedIn, async (req, res) => {
+  const {UserId} = req.params;
+  //const UserId = req.user_id;
+  const {id} = req.params;
+  //const id = req.params;
 
   try {
 

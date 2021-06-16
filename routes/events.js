@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const models = require('../models');
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 // GET all events created
 router.get("/", function (req, res) {
@@ -11,9 +12,9 @@ router.get("/", function (req, res) {
 		});
 });
 
-//! POST - create an event per organiser's profile <- private <- TBC
+//! POST - create an event per organiser's profile
 
-router.post('/:ProfileId', async (req, res) => {
+router.post('/:ProfileId', userShouldBeLoggedIn, async (req, res) => {
   const {ProfileId} = req.params;
   // const UserId = req.user_id;
   const { title, description, audience_capacity, if_underage, materials_needed, if_free, pricing } = req.body;
@@ -34,7 +35,7 @@ router.post('/:ProfileId', async (req, res) => {
 
 //! PUT - update an event per organiser's profile
 
-router.put('/:ProfileId/:id', async (req, res) => {
+router.put('/:ProfileId/:id', userShouldBeLoggedIn, async (req, res) => {
   const { title, description, audience_capacity, if_underage, materials_needed, if_free, pricing } = req.body;
   const {ProfileId} = req.params;
   // const UserId = req.user_id;
@@ -80,7 +81,7 @@ router.get('/:ProfileId', async (req, res) => {
 
 //! GET - one event created by one organiser
 
-router.get('/:ProfileId/:id', async (req, res) => {
+router.get('/:ProfileId/:id', userShouldBeLoggedIn, async (req, res) => {
   const {ProfileId} = req.params;
   // const UserId = req.user_id;
   const {id} = req.params;
@@ -102,7 +103,7 @@ router.get('/:ProfileId/:id', async (req, res) => {
 
 //! Delete - an event per organiser's profile
 
-router.delete('/:ProfileId/:id', async (req, res) => {
+router.delete('/:ProfileId/:id', userShouldBeLoggedIn, async (req, res) => {
   // const id = req.user_id;
   const {ProfileId} = req.params;
   const {id} = req.params;
