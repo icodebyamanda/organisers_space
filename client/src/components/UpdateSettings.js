@@ -4,8 +4,8 @@ import "../App.css";
 
 export default function UpdateSettings({ info, onUpdateSettings }) {
   const [update, setUpdate] = useState({
-    name: "",
-    username: "",
+    firstname: "",
+    lastname: "",
     email: "",
   });
 

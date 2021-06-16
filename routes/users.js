@@ -86,7 +86,7 @@ router.get('/settings', userShouldBeLoggedIn, async (req, res) => {
     try {
       const hash = await bcrypt.hash(password, saltRounds);
       await models.User.update(
-        { firstname, lastname, email, password : hash },
+        { firstname, lastname, email, password:hash },
       { where: {
           id,
         },

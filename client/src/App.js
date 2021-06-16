@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import NavBar from "./components/NavBar";
 import Settings from "./components/Settings";
 import PrivateHomepage from "./components/PrivateHomepage";
+import UpdateProfile from "./components/UpdateProfile";
 
 import { BrowserRouter as Router, Switch, Route, Link, useParams, useHistory } from "react-router-dom";
 
@@ -30,6 +31,8 @@ function App() {
             <Route path="/login" component={Login} />
 
             <PrivateRoute path="/home" component={PrivateHomepage} />
+
+            <PrivateRoute path="/update" component={UpdateProfile} />
 
             <PrivateRoute path="/profile" component={Profile} />
 

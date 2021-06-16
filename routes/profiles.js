@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const models = require('../models');
+const userShouldBeLoggedIn = require("../guards/userShouldBeLoggedIn");
 
 //! GET profiles listing
-router.get("/", function (req, res) {
+router.get("/", userShouldBeLoggedIn, function (req, res) {
 	models.Profile.findAll()
 		.then((data) => res.send(data))
 		.catch((error) => {
@@ -11,11 +12,11 @@ router.get("/", function (req, res) {
 		});
 });
 
-//! POST - create an organiser's profile <- TBC <- private
+//! POST - create an organiser's profile
 
-router.post('/:UserId', async (req, res) => {
-  const {UserId} = req.params;
-  // const UserId = req.user_id;
+router.post('/organiser', userShouldBeLoggedIn, async (req, res) => {
+  //const {UserId} = req.params;
+  const UserId = req.user_id;
   const { description, profile_picture, video, profile_name } = req.body;
 
   try {
@@ -32,11 +33,11 @@ router.post('/:UserId', async (req, res) => {
   }
 });
 
-//! GET - all profiles from an organiser <- admin <- TBC
+//! GET - all profiles from an organiser
 
-router.get('/:UserId', async (req, res) => {
-  const {UserId} = req.params;
-  // const UserId = req.user_id;
+router.get('/organiser', userShouldBeLoggedIn, async (req, res) => {
+  //const {UserId} = req.params;
+  const UserId = req.user_id;
   
 
   try {
@@ -54,12 +55,13 @@ router.get('/:UserId', async (req, res) => {
   });
 
 
-  //! Get one profile of the organisers <- Private 
+  //! Get one profile of the organisers  
 
-  router.get('/:UserId/:id', async (req, res) => {
-    const {UserId} = req.params;
-    // const UserId = req.user_id;
-    const {id} = req.params;
+  router.get('/unique', userShouldBeLoggedIn, async (req, res) => {
+    //const {UserId} = req.params;
+    const UserId = req.user_id;
+    //const {id} = req.params;
+    const id = req.params;
   
     try {
   
@@ -77,14 +79,15 @@ router.get('/:UserId', async (req, res) => {
     });
   
 
-//! PUT - update an organiser's profile <- private
+//! PUT - update an organiser's profile
 
 
-router.put('/:UserId/:id', async (req, res) => {
+router.put('/profile', userShouldBeLoggedIn, async (req, res) => {
   const { description, profile_picture, video, profile_name } = req.body;
-  const {UserId} = req.params;
-  // const UserId = req.user_id;
-  const {id} = req.params;
+  //const {UserId} = req.params;
+  const UserId = req.user_id;
+  //const {id} = req.params;
+  const id = req.params;
 
   try {
     
@@ -104,12 +107,13 @@ router.put('/:UserId/:id', async (req, res) => {
 });
 
 
-//! DELETE - an organiser's profile <- private and admin
+//! DELETE - an organiser's profile
 
-router.delete('/:UserId/:id', async (req, res) => {
-  // const id = req.user_id;
-  const {UserId} = req.params;
-  const {id} = req.params;
+router.delete('profile', userShouldBeLoggedIn, async (req, res) => {
+  //const {UserId} = req.params;
+  const UserId = req.user_id;
+  //const {id} = req.params;
+  const id = req.params;
 
   try {
 
